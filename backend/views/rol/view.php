@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
  
 foreach ($model->operacionesPermitidasList as $operacionPermitida) {
-    echo $operacionPermitida['nombre'] . "                    ";
+    echo $operacionPermitida['nombre'] . "                    "."</br>";
 }
  
 ?>

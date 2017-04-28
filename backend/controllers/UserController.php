@@ -14,7 +14,8 @@ use yii\data\Pagination;
 use yii\data\ActiveDataProvider;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
-
+use backend\models\PasswordResetRequestForm;
+use backend\models\ResetPasswordForm;
 /**
  * UserController implements the CRUD actions for User model.
  */
@@ -68,7 +69,7 @@ class UserController extends Controller
     }
 
     
-	 /*
+	 
      public function actionSignup($submit = false)
 {
     $model = new SignupForm();
@@ -93,7 +94,7 @@ class UserController extends Controller
         'model' => $model,
     ]);
 }
-	*/
+	
 
    
 	 
@@ -132,13 +133,7 @@ class UserController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the User model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return User the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+    
     protected function findModel($id)
     {
         if (($model = User::findOne($id)) !== null) {
@@ -148,7 +143,7 @@ class UserController extends Controller
         }
     }
 
-    
+    /*   
 	public function actionSignup()
     {
         $model = new SignupForm();
@@ -164,7 +159,7 @@ class UserController extends Controller
         return $this->render('signup', [
             'model' => $model,
         ]);
-    }
+    }*/
 	//Metodo que llama la vista para realizar el cambio de contraseña
 	public function actionChange_password()
     {
@@ -172,17 +167,54 @@ class UserController extends Controller
         $loadedPost = $user->load(yii::$app->request->post());
         
         if($loadedPost && $user->validate()){
-            $user->password = $user->nuevaClave;
+            
+            $user->password = $user->nueva_clave;
             $user->save(false);
-            yii::$app->session->setFlash('success','has cambiado tu Contraseña');
-            return $this->refresh();
+            yii::$app->session->setFlash('success','has cambiado tu Clave');
+            return $this->redirect(['site/index']);
         }
-        return $this->render("change_password", [// create view
+        return $this->renderAjax("change_password", [// create view
         'user' =>$user,
         
         ]);
     }
 
+    public function actionRequestPasswordReset()
+    {
+        $model = new PasswordResetRequestForm();
+     
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {             
+                Yii::$app->session->setFlash('success', 'Revisa tu correo y sigue las instrucciones.');
+                //return $this->goHome();
+            } else {         
+                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+            }
+        }
+        return $this->render('requestPasswordResetToken', [
+            'model' => $model,
+        ]);
+    }
+
+    
+    public function actionResetPassword($token)
+    {
+        try {
+            $model = new ResetPasswordForm($token);
+        } catch (InvalidParamException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+           // Yii::$app->session->setFlash('success', 'Nueva clave guardada');
+
+            return $this->goHome();
+        }
+
+        return $this->render('resetPassword', [
+            'model' => $model,
+        ]);
+    }
 	
 	
 }

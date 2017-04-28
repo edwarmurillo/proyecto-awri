@@ -33,7 +33,7 @@ $this->title = 'Bienvenido';
 
             <div class="info-box-content">
               <span class="info-box-text">Ordenes de trabajo</span>
-              <span class="info-box-number">90<small>%</small></span>
+              <span class="info-box-number"><small></small></span>
             </div>
             <!-- /.info-box-content -->
           </div>

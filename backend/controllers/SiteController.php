@@ -27,12 +27,12 @@ class SiteController extends Controller
                 
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error','contact'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index','upload','contact'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -115,10 +115,12 @@ class SiteController extends Controller
 	   if ($model->file && $model->validate()) {
 		foreach ($model->file as $file) {
 		 $file->saveAs('archivos/' . $file->baseName . '.' . $file->extension);
-		 $msg = "<p><strong class='label label-info'>Enhorabuena, subida realizada con éxito</strong></p>";
+		 $msg = "<p><strong class='label label-info'>Enhorabuena, </strong></p>";
 		}
 	   }
 	  }
 	  return $this->render("upload", ["model" => $model, "msg" => $msg]);
 	}
+
+    
 }

@@ -1,11 +1,16 @@
 ﻿<?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+
+$this->title='Cargar logo';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?= $msg ?>
+<?= $msg 
 
-<h3>Subir archivos</h3>
+?>
+
+
 
 <?php $form = ActiveForm::begin([
      "method" => "post",
@@ -18,4 +23,6 @@ use yii\widgets\ActiveForm;
 
 <?= Html::submitButton("Subir", ["class" => "btn btn-primary"]) ?>
 
+
+<?php echo Html::img('@web/archivos/LOGO HM.jpg') ?>
 <?php $form->end() ?>

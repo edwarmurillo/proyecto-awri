@@ -1,10 +1,16 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
 
+Modal::begin([
+            'header'=>'<h4 class="modal-title">Complete</h4>',
+            'id' => 'modal',                        
+            ]);
+            echo "<div id=modalContent></div>";
+Modal::end();
 
 $this->title = 'Login';
 
@@ -73,9 +79,13 @@ $fieldOptions2 = [
         <!-- /.social-auth-links -->
         <div class="col-xs-12  text-center">
             <div class="caja-bot display-block position-relative">
-                <a href="#" class="olvidar-contrasena">Olvidé mi contraseña</a><br>
+
+                <a href="http://backend.habitat.com/index.php?r=user%2Frequest-password-reset" class="olvidar-contrasena" >Olvidé mi contraseña</a><br>
             </div>
+
         </div>
+       
     </div>
     <!-- /.login-box-body -->
 </div><!-- /.login-box -->
+

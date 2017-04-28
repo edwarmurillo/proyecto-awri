@@ -2,14 +2,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-$this->title = 'Permisos';
+$this->title = 'About';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
-   
-<div class="col-md-9">
+    <h1><?= Html::encode($this->title) ?></h1>
+
     <div class="alert alert-danger">
-    <p>No tiene permiso para acceder a esta acción, comuniquese con el administrador para obtener mas informacion.</p>
-    </div>
+    <p>No tiene permiso para acceder a esta página.</p>
     </div>
 </div>

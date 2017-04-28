@@ -21,9 +21,11 @@ class Clientes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nit'], 'required'],
-            [['razon_social', 'nit', 'direccion', 'telefono', 'ciudad', 'nombre_contacto', 'celular', 'cargo', 'correo_electronico'], 'string', 'max' => 255],
-            [['nit'], 'unique'],
+            [['nit','razon_social','direccion', 'telefono', 'ciudad',], 'required'],
+            [['razon_social', 'nit', 'direccion',  'ciudad', 'nombre_contacto', 'celular', 'cargo', 'correo_electronico'], 'string', 'max' => 255],
+            [['nit','correo_electronico'], 'unique'],
+            [['correo_electronico'], 'email'],
+            [['telefono'],'integer','message'=>'solo valores numericos'],
         ];
     }
 

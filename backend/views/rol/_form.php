@@ -20,7 +20,8 @@ use yii\widgets\ActiveForm;
      <?php
     $opciones = \yii\helpers\ArrayHelper::map($tipoOperaciones, 'id', 'nombre');
     echo $form->field($model, 'operaciones')->checkboxList($opciones, ['unselect'=>NULL]);
-?>
+
+   	?>
    
     <?php ActiveForm::end(); ?>
     

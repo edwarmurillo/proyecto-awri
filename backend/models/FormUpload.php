@@ -17,7 +17,7 @@ class FormUpload extends model{
    'tooBig' => 'El tamaño máximo permitido es 1MB', //Error
    'minSize' => 10, //10 Bytes
    'tooSmall' => 'El tamaño mínimo permitido son 10 BYTES', //Error
-   'extensions' => 'pdf, txt, doc,jpg',
+   'extensions' => 'jpg',
    'wrongExtension' => 'El archivo {file} no contiene una extensión permitida {extensions}', //Error
    'maxFiles' => 4,
    'tooMany' => 'El máximo de archivos permitidos son {limit}', //Error

@@ -37,9 +37,9 @@
                     ['label' => 'Clientes', 'icon' => 'fa fa-users', 'url' =>['clientes/index']],
 					['label' => 'proveedores', 'icon' => 'fa fa-truck', 'url' => ['proveedores/index']],
 					['label' => 'Datos de la empresa', 'icon' => 'fa fa-cog', 'url' => ['empresa/index']],
-					['label' => 'Cambiar clave', 'icon' => 'fa fa-key', 'url' => ['user/change_password']],
+                    
 					['label' => 'Cerrar sesion','icon'=> 'fa fa-sign-out', 'url' => ['site/logout'] ],
-				//	['label' => 'Subir logo', 'icon' => 'fa fa-key', 'url' => ['site/upload']],
+					['label' => 'Subir logo', 'icon' => 'fa fa-key', 'url' => ['site/upload']],
                 //    ['label' => 'Roles', 'icon' => 'fa fa-key', 'url' => ['rol/index']],
                     //['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     /*[

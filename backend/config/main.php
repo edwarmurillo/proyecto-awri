@@ -7,10 +7,11 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-backend',
+    'id' => 'SOT',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
+    'language' =>'es',
     'modules' => [],
     'components' => [
 		'assetManager' => [

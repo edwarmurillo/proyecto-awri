@@ -5,6 +5,7 @@ namespace backend\models;
 use Yii;
 use backend\models\RolOperacion;
 use backend\models\Operacion;
+use common\models\User;
 
 /**
  * This is the model class for table "rol".

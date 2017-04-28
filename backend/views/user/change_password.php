@@ -2,21 +2,23 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+
 $this->title = 'Modificar Clave';
 ?>
 
- <div class="col-lg-5">
+
 <?php $form = ActiveForm::begin(); ?>
 
-<?= $form->field($user, 'claveActual')->passwordInput() ?>
+<?= $form->field($user, 'clave_actual')->passwordInput() ?>
 
-<?= $form->field($user, 'nuevaClave')->passwordInput() ?>
+<?= $form->field($user, 'nueva_clave')->passwordInput() ?>
 
-<?= $form->field($user, 'confirmarClave')->passwordInput() ?>
+<?= $form->field($user, 'confirmar_clave')->passwordInput() ?>
 
 <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
+    
         <?= Html::submitButton('Aceptar',['class' => 'btn btn-primary']) ?>
+        <a href="#" class="btn btn-primary" data-dismiss="modal">Cerrar</a>
     </div>
 </div>
  </div>

@@ -22,10 +22,9 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [[ 'correo_electronico', 'nombre', 'apellido'], 'required'],
-            [['fecha_creacion'], 'safe'],
-            [[ 'status'], 'integer'],
             [['correo_electronico', 'apellido', 'nombre'], 'string', 'max' => 255],
-            [['auth_key'], 'string', 'max' => 32],
+            [['correo_electronico'],'email'],
+            
         ];
     }
 

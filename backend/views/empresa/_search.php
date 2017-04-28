@@ -9,16 +9,16 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="empresa-search">
-	<div class="col-md-12">
+	<div class="col-md-3">
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
-
-    <?= $form->field($model, 'buscar') ?> 
-    <?= Html::submitButton('buscar', ['class' => 'btn btn-primary']) ?>
     
-
+    <?= Html::submitButton('buscar', ['class' => 'btn btn-primary']) ?>
+    <?= $form->field($model, 'buscar') ?> 
+      
+</div>
     <?php ActiveForm::end(); ?>
     </div>
 </div>

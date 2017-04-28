@@ -7,6 +7,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\db\Expression;
+use backend\models\Rol;
 
 
 class User extends ActiveRecord implements IdentityInterface
@@ -14,9 +15,9 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 	
-	public $claveActual;
-    public $nuevaClave;
-    public $confirmarClave;
+	public $clave_actual;
+    public $nueva_clave;
+    public $confirmar_clave;
 
     /**
      * @inheritdoc
@@ -49,33 +50,35 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+        //pendiente modificar las reglas  para el cambio de contraseÃ±a.
+        
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            /*
+            [['nueva_clave','clave_actual','confirmar_clave'],'required'],
+            [['clave_actual'],'validateCurrentPassword'],
+            [['nueva_clave','confirmar_clave'],'string','min'=>6],
+            [['nueva_clave','confirmar_clave'],'filter','filter' => 'trim'],
+            [['confirmar_clave'],'compare','compareAttribute' => 'nueva_clave', 'message' => 'la clave no coincide'],*/
 			
         ];
 		
-		return [
-		[['nuevaClave','claveActual','confirmarClave'],'required'],
-            [['claveActual'],'validateCurrentPassword'],
-            [['nuevaClave','confirmarClave'],'string','min'=>6],
-            [['nuevaClave','confirmarClave'],'filter','filter' => 'trim'],
-            [['confirmarClave'],'compare','compareAttribute' => 'nuevaClave', 'message' => 'la clave no coincide'],
-		];
+		
     }
 	
-	//metodo para validar la contraseña la contraseña actual
-	public function validateCurrentPassword()
+    public function validateCurrentPassword()
     {
-    if (!$this->verifyPassword($this->claveActual)){
-        $this->addError("claveActual","Clave Actual incorrecta"); 
+    if (!$this->verifyPassword($this->clave_actual)){
+        $this->addError("clave_actual","Clave Actual incorrecta"); 
         }      
     }
-	//metodo para validar contraseña nueva
+
     public function verifyPassword($clave)
     {
         $dbpassword = static::findOne(['correo_electronico'=> yii::$app->user->identity->correo_electronico, 'status'=>self::STATUS_ACTIVE])->password_hash;
-        return yii::$app->security->validatePassword($clave, $dbclave);
+        return yii::$app->security->validatePassword($clave, $dbpassword);
     }
+	
 	
 	
     public static function findIdentity($id)
@@ -83,20 +86,13 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
 
-    /**
-     * @inheritdoc
-     */
+    
     public static function findIdentityByAccessToken($token, $type = null)
     {
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
 
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
+    
     public static function findByCorreo($correo_electronico)
     {
         return static::findOne(['correo_electronico' => $correo_electronico, 'status' => self::STATUS_ACTIVE]);
@@ -198,5 +194,19 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public function getRol()
+    {
+            return $this->hasOne(Rol::className(), ['id' => 'rol_id']);
+    }
+
+    public static function roleInArray($arr_role)
+    {
+    return in_array(Yii::$app->user->identity->role, $arr_role);
+    }
+    public static function isActive()
+    {
+    return Yii::$app->user->identity->status == self::STATUS_ACTIVE;
     }
 }

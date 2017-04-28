@@ -12,7 +12,7 @@ class BaseController extends Controller {
         } 
         $operacion = str_replace("/", "-", Yii::$app->controller->route);
  
-        $permitirSiempre = ['rol-index'];//Ventanas que tienen permisos para aparecer con cualquier usuario.
+        $permitirSiempre = ['rol-create'];//Ventanas que tienen permisos para aparecer con cualquier usuario.
  
         if (in_array($operacion, $permitirSiempre)) {
             return true;

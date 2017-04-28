@@ -5,7 +5,7 @@ namespace backend\models;
 use Yii;
 
 /**
- * This is the model class for table "proveedores".
+ * Modelo tabla proveedores contiene las siguientes variables.
  *
  * @property string $razon_social
  * @property string $nit
@@ -29,14 +29,16 @@ class Proveedores extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * Esta clase se usa para definir las reglas de las entradas de texto que tendra cada de una de las variables
      */
     public function rules()
     {
         return [
-            [['nit'], 'required'],
-            [['razon_social', 'nit', 'direccion', 'telefono', 'ciudad', 'nombre_contacto', 'celular', 'cargo', 'correo_electronico', 'pagina_web'], 'string', 'max' => 255],
-            [['nit'], 'unique'],
+            [['nit','razon_social','direccion', 'telefono', 'ciudad',], 'required'],
+            [['razon_social', 'nit', 'direccion', 'ciudad', 'nombre_contacto', 'celular', 'cargo', 'correo_electronico', 'pagina_web'], 'string', 'max' => 255],
+            [['correo_electronico'],'email'],
+            [['nit','correo_electronico'], 'unique'],
+            [['telefono'],'integer','message'=>'solo valores numericos'],
         ];
     }
 

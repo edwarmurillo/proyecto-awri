@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = "Gestion de usuarios";
 
         <div class="user-index">
            <p>
-                <?= Html::a('Nueva Usuario', '#', [
+                <?= Html::a('Nuevo Usuario', '#', [
                     'id' => 'activity-index-link',
                     'class' => 'btn btn-success',
                     'data-toggle' => 'modal',

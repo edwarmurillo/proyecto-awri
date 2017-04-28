@@ -10,11 +10,15 @@ use backend\models\search\RolSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
+use common\models\AccessHelpers;
+
 
 /**
  * RoleController implementa las acciones CRUD para el modelo de rol.
  */
-class RolController extends BaseController
+class RolController extends Controller
 {
     /**
      * @inheritdoc
@@ -69,19 +73,31 @@ class RolController extends BaseController
      * * De la creación es un éxito, el navegador será redirigido a la página de "view".
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($submit = false)
 {
     $model = new Rol();
     $tipoOperaciones = Operacion::find()->all();
+
+    if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()) && $submit == false) {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ActiveForm::validate($model);
+    }
  
-    if ($model->load(Yii::$app->request->post()) && $model->save()) {
-        return $this->redirect(['view', 'id' => $model->id]);
-    } else {
-        return $this->render('create', [
+    if ($model->load(Yii::$app->request->post())) {
+        if ($model->save()) {
+            $model->refresh();
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return $this->redirect(['index']);
+        } else {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+    }
+        return $this->renderAjax('create', [
             'model' => $model,
             'tipoOperaciones' => $tipoOperaciones
         ]);
-    }
+    
 }
 
     /**

@@ -73,12 +73,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         ],
                         ]); ?>
+
+                      <center>
+                          <?php echo Html::img('@web/archivos/LOGO HM.jpg') ?>
+                      </center>  
                     </div>
 
                 </div>
             </div>
+
         </div>
     </div>
+    
 
 
     <?php
